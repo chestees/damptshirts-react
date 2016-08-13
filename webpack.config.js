@@ -4,17 +4,17 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 	context: path.resolve('app'),
-	entry: ['./app'],
+	entry: {
+		'app': './app.js'
+		, 'detail': './detail.js'
+	},
 	watch: true,
 	output: {
 		path: path.resolve('app/js/'),
 		publicPath: '/app/js/',
-		filename: 'bundle.js'
+		filename: '[name].js'
 	},
 	devtool: 'source-map',
-	// devServer: {
-	// 	contentBase: './app'
-	// },
 	module: {
 		loaders: [
 			{

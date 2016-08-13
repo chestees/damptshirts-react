@@ -2,7 +2,9 @@
   "name": "damptshirts_react",
   "version": "1.0.0",
   "description": "React version of Damp TShirts",
-  "main": "server.js",
+  "engines": {
+    "node": "4.4.x"
+  },
   "dependencies": {
     "URIjs": "^1.16.1",
     "babel": "^6.5.2",
@@ -13,6 +15,7 @@
     "bootstrap": "^3.3.7",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
+    "fb": "^1.1.1",
     "guid": "0.0.12",
     "http": "0.0.0",
     "jquery": "^3.1.0",

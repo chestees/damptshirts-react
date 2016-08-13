@@ -1,12 +1,11 @@
 var express = require('express');
 var app = new express();
 var parser = require('body-parser');
-var http = require("http");
+var http = require('http');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Backbone = require('backbone');
 var _ = require( 'underscore' );
-var config = require( './config/config.js' );
 require('babel-register');
 
 app.config = {
@@ -15,8 +14,8 @@ app.config = {
 	server: process.env.DB_SERVER,
 	database: process.env.DB_NAME
 }
-console.log("PROCESS: " + JSON.stringify(process.env));
-app.use(express.static(__dirname + '/../app'));
+
+app.use( express.static( __dirname + '/app' ) );
 
 // Homepage
 app.get('/', function( request, response ) {
@@ -61,10 +60,11 @@ app.get('/', function( request, response ) {
 app.get('/:slug/shirt/:id', function( request, response ) {
 	var application;
 	var generated;
+	var itemId = request.params.id;
 
-	console.log("REQUEST: " + request.params.id );
+	console.log("Item Id: " + request.params.id );
 
-	application = React.createFactory( require('./app/js/app.jsx') );
+	application = React.createFactory( require('./app/js/detail.jsx') );
 
 	http.get("http://damptshirts.herokuapp.com/api/product/" + request.params.id, function( res ) {
 		var body = '';
@@ -76,11 +76,14 @@ app.get('/:slug/shirt/:id', function( request, response ) {
 		// After the response is completed, parse it and log it to the console
 		res.on('end', function() {
 			var parsed = JSON.parse(body);
+
+			var itemModel = new Backbone.Model()
+			itemModel.set( parsed );
+
 			generated = ReactDOM.renderToString( application( {
-				items: parsed
-				, page: 'detail'
+				itemDetail: itemModel
 			} ) );
-			response.render('./../app/index.ejs', { reactOutput: generated } );
+			response.render('./../app/detail.ejs', { reactOutput: generated, itemId: itemId } );
 		});
 	})
 	// If any error has occured, log error to console

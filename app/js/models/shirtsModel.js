@@ -1,7 +1,12 @@
 var Backbone = require( 'backbone' );
 
 var ShirtsModel = Backbone.Model.extend({
-	urlRoot: '/api/products'
+	url: function () {
+		return '/api/product' + ( this.has( 'itemId' ) ? ( '/' + this.get( 'itemId' ) ) : '' );
+	}
+	, initialize: function( options ) {
+		this.itemId = options.itemId;
+	}
 	, defaults: {
 		'thumbs': 0,
 	}

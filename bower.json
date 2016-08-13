@@ -1,18 +1,18 @@
 {
-  "name": "damptshirts_react",
-  "description": "React version of Damp TShirts",
-  "main": "index.js",
-  "authors": [
-    "Jason Diehl"
-  ],
-  "license": "ISC",
-  "homepage": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+	"name": "damptshirts_react",
+	"description": "React version of Damp TShirts",
+	"main": "server.js",
+	"authors": [
+		"Jason Diehl"
+	],
+	"license": "ISC",
+	"homepage": "",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	]
 }

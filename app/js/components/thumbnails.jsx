@@ -10,15 +10,15 @@ var Thumbnails = React.createClass( {
 	, render: function () {
 		var thumbnails = this.props.items.map( _.bind( function ( item, i ) {
 
-			var hrefUrl = '/' + item.slug + '/shirt/' + item.dampId;
+			var hrefUrl = '/' + item.get( 'slug' ) + '/shirt/' + item.get( 'dampId' );
 
 			return (
-				<div className="product" key={i}>
-					<a className="product-link" href={ hrefUrl } data-id={ item.dampId }>
-						<img className="product-image" alt={ item.title } title={ item.title } src={ item.get( 'image' ) } />
+				<div className="product" key={ i }>
+					<a className="product-link" href={ hrefUrl } data-id={ item.get( 'dampId' ) }>
+						<img className="product-image" alt={ item.get( 'title' ) } title={ item.get( 'title' ) } src={ item.get( 'image' ) } />
 					</a>
-					<div className="thumbs" data-id={ item.dampId }>
-						<span className="badge vote-count">{ item.thumbs } votes</span>
+					<div className="thumbs" data-id={ item.get( 'dampId' ) }>
+						<span className="badge vote-count">{ item.get( 'thumbs' ) } votes</span>
 						<div className="thumbs_info">
 							<div className="btn btn-danger vote-down">
 								<span className="txt">Meh</span>
@@ -26,7 +26,7 @@ var Thumbnails = React.createClass( {
 							<div className="btn btn-primary l_margin_5 vote-up">
 								<span className="txt">Like</span>
 							</div>
-							<div className="date-added">{ item.dateAdded }</div>
+							<div className="date-added">{ item.get( 'dateAdded' ) }</div>
 						</div>
 					</div>
 				</div>
