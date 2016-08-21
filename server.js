@@ -156,6 +156,6 @@ require( './server/routes/productTags' )( app );
 require( './server/routes/productListing' )( app );
 // require( './routes/tags' )( app );
 // require( './routes/tagRelations' )( app );
-// require( './routes/vendors' )( app );
+require( './server/routes/vendors' )( app );
 // require( './scrapers/threadless' )( app );
 // require( './scrapers/busted-tees' )( app );

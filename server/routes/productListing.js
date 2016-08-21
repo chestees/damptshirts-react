@@ -11,8 +11,8 @@ module.exports = function( app ) {
 		app.use( '/api/products', function( req, res ) {
 
 			var productListing = new sql.Request();
-			var page           = req.query.page || 3;
-			var pageSize       = req.query.pageSize || 500;
+			var page           = req.query.page || 1;
+			var pageSize       = req.query.pageSize || 25;
 			var orderBy        = req.query.orderBy || 'dateAdded';
 			var tagId          = req.query.tagId || 0;
 
@@ -27,7 +27,7 @@ module.exports = function( app ) {
 				app = recordset[0];
 				app.recordCount = recordset[1][0];
 
-				// console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
+				console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
 				// console.log( '2: ' + JSON.stringify( recordset[1][0] ) + '\n' );
 
 				// console.log( 'Tag Id  : ' + tagId );
