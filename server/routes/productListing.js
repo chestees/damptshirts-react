@@ -4,7 +4,7 @@ var sql = require( 'mssql' ),
 module.exports = function( app ) {
     sql.connect( app.config, _.bind( function( err ) {
 		if( err ) {
-			console.log("ERR: " + err );
+			console.log("Product Listing Error: " + err );
 		}
 
 		// Product listing

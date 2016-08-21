@@ -1,13 +1,26 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var _ = require( 'underscore' );
+var $ = require( 'jquery' );
 
 var Thumbnails = React.createClass( {
 	propTypes: function () {
 		return {
 			items: React.PropTypes.object
+			, containerWidth: React.PropTypes.number
 		}
 	}
+	, componentDidMount: function() {
+		var containerWidth = $( this.refs.container ).width();
+		console.log('Thumbnails Mounted');
+		console.log( "WIDTH: " + containerWidth );
+
+		var thumbnailWidth = Math.floor( containerWidth / 6 );
+		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( thumbnailWidth );
+	}
 	, render: function () {
+		console.log('Thumbnails Rendered');
+
 		var thumbnails = this.props.items.map( _.bind( function ( item, i ) {
 
 			var hrefUrl = '/' + item.get( 'slug' ) + '/shirt/' + item.get( 'dampId' );
@@ -31,11 +44,11 @@ var Thumbnails = React.createClass( {
 					</div>
 				</div>
 			)
-		} ), this );
+		}, this ) );
 
 		return (
-			<div className="product-list-container">
-				<div className="product-list">
+			<div className="product-list-container" ref="container">
+				<div className="product-list" ref="images">
 					{ thumbnails }
 				</div>
 			</div>

@@ -7,9 +7,8 @@ var ShirtsModel = require( './../models/shirtsModel' );
 
 var ShirtCollection = Backbone.Collection.extend({
 	model: ShirtsModel
-	// , url: '/api/products?Page=1&PageSize=6&TagId=0'
 	, url: function() {
-		return URI( 'api/products' ).query( this.params );
+		return URI( '/api/products' ).query( this.params );
 	}
 	, initialize: function( options ) {
 		var page      = options.page || 1;

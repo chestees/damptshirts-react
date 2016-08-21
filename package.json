@@ -1,54 +1,55 @@
 {
-  "name": "damptshirts_react",
-  "version": "1.0.0",
-  "description": "React version of Damp TShirts",
-  "engines": {
-    "node": "4.4.x"
-  },
-  "dependencies": {
-    "URIjs": "^1.16.1",
-    "babel": "^6.5.2",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "babel-register": "^6.11.6",
-    "babelify": "^7.3.0",
-    "backbone": "^1.3.3",
-    "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.7",
-    "ejs": "^2.5.1",
-    "express": "^4.14.0",
-    "fb": "^1.1.1",
-    "guid": "0.0.12",
-    "http": "0.0.0",
-    "jquery": "^3.1.0",
-    "less": "^2.7.1",
-    "mssql": "^3.3.0",
-    "najax": "^0.7.1",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-tools": "^0.13.3",
-    "reactify": "^1.1.1",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "css-loader": "^0.23.1",
-    "ejs": "^2.5.1",
-    "ejs-html-loader": "^2.0.2",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.9.0",
-    "less-loader": "^2.2.3",
-    "postcss-loader": "^0.9.1",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jason Diehl",
-  "license": "ISC"
+	"name": "damptshirts_react",
+	"version": "1.0.0",
+	"description": "React version of Damp TShirts",
+	"engines": {
+		"node": "4.4.x"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "heroku local"
+	},
+	"dependencies": {
+		"URIjs": "^1.16.1",
+		"babel": "^6.5.2",
+		"babel-preset-es2015": "^6.13.2",
+		"babel-preset-react": "^6.11.1",
+		"babel-register": "^6.11.6",
+		"babelify": "^7.3.0",
+		"backbone": "^1.3.3",
+		"body-parser": "^1.15.2",
+		"bootstrap": "^3.3.7",
+		"ejs": "^2.5.1",
+		"express": "^4.14.0",
+		"guid": "0.0.12",
+		"http": "0.0.0",
+		"jquery": "^3.1.0",
+		"less": "^2.7.1",
+		"mssql": "^3.3.0",
+		"najax": "^0.7.1",
+		"react": "^15.3.0",
+		"react-dom": "^15.3.0",
+		"react-tools": "^0.13.3",
+		"reactify": "^1.1.1",
+		"request": "^2.74.0",
+		"underscore": "^1.8.3"
+	},
+	"devDependencies": {
+		"babel-core": "^6.13.2",
+		"babel-loader": "^6.2.4",
+		"babel-preset-es2015": "^6.13.2",
+		"babel-preset-react": "^6.11.1",
+		"css-loader": "^0.23.1",
+		"ejs": "^2.5.1",
+		"ejs-html-loader": "^2.0.2",
+		"extract-text-webpack-plugin": "^1.0.1",
+		"file-loader": "^0.9.0",
+		"less-loader": "^2.2.3",
+		"postcss-loader": "^0.9.1",
+		"style-loader": "^0.13.1",
+		"url-loader": "^0.5.7",
+		"webpack": "^1.13.1"
+	},
+	"author": "Jason Diehl",
+	"license": "ISC"
 }

@@ -1,26 +1,29 @@
 var React = require('react');
-var ReactDOM = require('react-dom/server');
-var _ = require( 'underscore' );
 
 var Header = require( './components/header' );
 var DetailItem = require( './components/detailItem' );
+var SideBar = require( './components/sideBar' );
 
 var App = React.createClass( {
 	propTypes: function () {
 		return {
 			itemDetail: React.PropTypes.object
+			, vendors: React.PropTypes.object
 		}
 	}
 	, render: function () {
 
 		var detailContent = ( <DetailItem itemDetail={ this.props.itemDetail } /> );
+		var sideBar = ( <SideBar /> );
 
 		return (
 			<div className="layout">
 				<Header />
 				<main className="container-fluid">
 					<div className="row">
-						<aside className="col-md-2"></aside>
+						<aside className="col-md-2">
+							{ sideBar }
+						</aside>
 						<article className="col-md-10 detail">
 							{ detailContent }
 						</article>

@@ -1,8 +1,8 @@
 var React = require('react');
-var ReactDOM = require('react-dom/server');
 var _ = require( 'underscore' );
 
 var Header = require( './components/header' );
+var SideBar = require( './components/sideBar' );
 var Thumbnails = require( './components/thumbnails' );
 
 var App = React.createClass( {
@@ -12,18 +12,23 @@ var App = React.createClass( {
 			, page: React.PropTypes.string
 		}
 	}
+	, componentDidMount: function () {
+		console.log('App Mounted');
+	}
 	, render: function () {
-		var content;
 
-		content = ( <Thumbnails items={ this.props.items } /> );
+		var content = ( <Thumbnails items={ this.props.items } /> );
+		var sideBar = ( <SideBar /> );
 
 		return (
 			<div className="layout">
 				<Header />
 				<main className="container-fluid">
 					<div className="row">
-						<aside className="col-md-2"></aside>
-						<article className="col-md-10">
+						<aside className="col-md-2">
+							{ sideBar }
+						</aside>
+						<article className="col-md-10" id="article">
 							{ content }
 						</article>
 					</div>
