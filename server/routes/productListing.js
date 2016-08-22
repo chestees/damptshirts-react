@@ -27,7 +27,7 @@ module.exports = function( app ) {
 				app = recordset[0];
 				app.recordCount = recordset[1][0];
 
-				console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
+				// console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
 				// console.log( '2: ' + JSON.stringify( recordset[1][0] ) + '\n' );
 
 				// console.log( 'Tag Id  : ' + tagId );

@@ -49,7 +49,7 @@ var ItemDetail = React.createClass( {
 					<div className="row">
 						<div className="product-image col-md-10"><img src={ displayImage } /></div>
 						<div className="btn-affiliate col-md-2">
-							<a target="_blank" href="" className="btn btn-danger buy" data-url="">Buy Me</a>
+							<a target="_blank" href={this.buildLink} className="btn btn-danger buy" data-url="">Buy Me</a>
 						</div>
 					</div>
 					<div className="social clearfix">
@@ -71,7 +71,9 @@ var ItemDetail = React.createClass( {
 			</div>
 		)
 	}
-	, buildLink: function( url ) {
+	, buildLink: function() {
+		var vendorId = this.props.itemDetail.get( 'vendorId' );
+		// _.find( )
 		var linkPrefix = this.vendor.get( 'linkPrefix' );
 		var linkSuffix = this.vendor.get( 'linkSuffix' );
 

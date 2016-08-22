@@ -95,7 +95,7 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 
 			generated = ReactDOM.renderToString( application( {
 				itemDetail: itemModel
-				, vendors: app.vendorsCollection
+				// , vendors: app.vendorsCollection
 			} ) );
 
 			response.render('./../app/detail.ejs', {
@@ -154,7 +154,7 @@ app.listen( app.get( 'port' ), _.bind( function() {
 require( './server/routes/product' )( app );
 require( './server/routes/productTags' )( app );
 require( './server/routes/productListing' )( app );
-// require( './routes/tags' )( app );
+require( './server/routes/tags' )( app );
 // require( './routes/tagRelations' )( app );
 require( './server/routes/vendors' )( app );
 // require( './scrapers/threadless' )( app );
