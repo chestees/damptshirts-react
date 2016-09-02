@@ -14,6 +14,7 @@ var ShirtCollection = Backbone.Collection.extend({
 		var page      = options.page || 1;
 		var pageSize  = options.pageSize || 25;
 		this.orderBy  = options.orderBy || 'dateAdded';
+		this.orderDirection = options.orderDirection || 'ASC';
 		var tagId     = options.tagId || 0;
 		//
 		// this.listenTo( this, "sort", this.render );
@@ -21,6 +22,7 @@ var ShirtCollection = Backbone.Collection.extend({
 			page: page
 			, pageSize: pageSize
 			, orderBy: this.orderBy
+			, orderDirection: this.orderDirection
 			, tagId: tagId
 		};
 	}

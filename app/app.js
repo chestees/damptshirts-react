@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var App = require( './js/app.jsx' );
-var DampStore = require('./js/stores/dampStore.jsx');
+var DampStore = require('./js/stores/dampStore.js');
 var tagId = window.tagId;
 
 var options = {

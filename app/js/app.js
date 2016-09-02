@@ -49,7 +49,7 @@
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(35);
 	var App = __webpack_require__(175);
-	var DampStore = __webpack_require__(183);
+	var DampStore = __webpack_require__(188);
 	var tagId = window.tagId;
 	
 	var options = {
@@ -21447,11 +21447,12 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var _ = __webpack_require__(180);
+	var _ = __webpack_require__(176);
 	
-	var Header = __webpack_require__(181);
-	var SideBar = __webpack_require__(530);
-	var Thumbnails = __webpack_require__(182);
+	var Header = __webpack_require__(177);
+	var SideBar = __webpack_require__(178);
+	var OptionsBar = __webpack_require__(179);
+	var Thumbnails = __webpack_require__(189);
 	
 	var App = React.createClass({
 		displayName: 'App',
@@ -21469,6 +21470,7 @@
 	
 			var content = React.createElement(Thumbnails, { items: this.props.items });
 			var sideBar = React.createElement(SideBar, null);
+			var optionsBar = React.createElement(OptionsBar, null);
 	
 			return React.createElement(
 				'div',
@@ -21488,6 +21490,7 @@
 						React.createElement(
 							'article',
 							{ className: 'col-md-10', id: 'article' },
+							optionsBar,
 							content
 						)
 					)
@@ -21499,11 +21502,7 @@
 	module.exports = App;
 
 /***/ },
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -23057,7 +23056,7 @@
 
 
 /***/ },
-/* 181 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23156,272 +23155,103 @@
 	module.exports = Header;
 
 /***/ },
-/* 182 */
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var SideBar = React.createClass({
+		displayName: "SideBar",
+	
+		propTypes: function propTypes() {
+			return {};
+		},
+		render: function render() {
+	
+			return React.createElement(
+				"a",
+				{ className: "banner_novelty", href: "/novelty_gifts/tag/474?utm_campaign=Global&utm_source=Damp&utm_medium=NoveltyBanner" },
+				React.createElement(
+					"span",
+					null,
+					"Novelty Gifts"
+				)
+			);
+		}
+	});
+	
+	module.exports = SideBar;
+
+/***/ },
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(35);
-	var _ = __webpack_require__(180);
-	var $ = __webpack_require__(187);
+	var _ = __webpack_require__(176);
+	var $ = __webpack_require__(180);
 	
-	var Thumbnails = React.createClass({
-		displayName: 'Thumbnails',
+	var DampActions = __webpack_require__(181);
+	var DampStore = __webpack_require__(188);
+	
+	var OptionsBar = React.createClass({
+		displayName: 'OptionsBar',
 	
 		propTypes: function propTypes() {
-			return {
-				items: React.PropTypes.object,
-				containerWidth: React.PropTypes.number
-			};
+			return {};
 		},
-		componentDidMount: function componentDidMount() {
-			var containerWidth = $(this.refs.container).width();
-			console.log('Thumbnails Mounted');
-			console.log("WIDTH: " + containerWidth);
-	
-			var thumbnailWidth = Math.floor(containerWidth / 6);
-			$(ReactDom.findDOMNode(this.refs.images)).find('img').width(thumbnailWidth);
-		},
+		componentDidMount: function componentDidMount() {},
 		render: function render() {
-			console.log('Thumbnails Rendered');
-	
-			var thumbnails = this.props.items.map(_.bind(function (item, i) {
-	
-				var hrefUrl = '/' + item.get('slug') + '/shirt/' + item.get('dampId');
-	
-				return React.createElement(
-					'div',
-					{ className: 'product', key: i },
-					React.createElement(
-						'a',
-						{ className: 'product-link', href: hrefUrl, 'data-id': item.get('dampId') },
-						React.createElement('img', { className: 'product-image', alt: item.get('title'), title: item.get('title'), src: item.get('image') })
-					),
-					React.createElement(
-						'div',
-						{ className: 'thumbs', 'data-id': item.get('dampId') },
-						React.createElement(
-							'span',
-							{ className: 'badge vote-count' },
-							item.get('thumbs'),
-							' votes'
-						),
-						React.createElement(
-							'div',
-							{ className: 'thumbs_info' },
-							React.createElement(
-								'div',
-								{ className: 'btn btn-danger vote-down' },
-								React.createElement(
-									'span',
-									{ className: 'txt' },
-									'Meh'
-								)
-							),
-							React.createElement(
-								'div',
-								{ className: 'btn btn-primary l_margin_5 vote-up' },
-								React.createElement(
-									'span',
-									{ className: 'txt' },
-									'Like'
-								)
-							),
-							React.createElement(
-								'div',
-								{ className: 'date-added' },
-								item.get('dateAdded')
-							)
-						)
-					)
-				);
-			}, this));
-	
 			return React.createElement(
 				'div',
-				{ className: 'product-list-container', ref: 'container' },
+				{ className: 'sort module_1 b_margin_10 clearfix', ref: 'sortOptions' },
 				React.createElement(
-					'div',
-					{ className: 'product-list', ref: 'images' },
-					thumbnails
-				)
+					'a',
+					{ className: 'btn pull-left', href: '/tag-list/' },
+					'Browse by Tag'
+				),
+				React.createElement(
+					'span',
+					{ className: 'btn pull-right l_margin_5 sortON', ref: 'btnMostRecent' },
+					'Most Recent'
+				),
+				React.createElement(
+					'span',
+					{ className: 'btn pull-right l_margin_5', ref: 'btnLeast' },
+					'Least Liked'
+				),
+				React.createElement(
+					'span',
+					{ className: 'btn pull-right l_margin_5', ref: 'btnMost', 'data-orderby': 'mostliked', onClick: this._order },
+					'Most Liked'
+				),
+				React.createElement('div', { className: 'clear' })
 			);
+		},
+		_order: function _order(evt) {
+			var orderBy = evt.target.dataset.orderby;
+			var orderDirection;
+			var options;
+	
+			if (orderBy === 'mostliked') {
+				options = {
+					orderBy: 'thumbs',
+					orderDirection: 'DESC'
+				};
+			}
+	
+			DampActions.sortItems(options);
 		}
 	});
 	
-	module.exports = Thumbnails;
+	module.exports = OptionsBar;
 
 /***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var dispatcher = __webpack_require__(184);
-	var ShirtCollection = __webpack_require__(186);
-	var ShirtModel = __webpack_require__(194);
-	var items = {};
-	var itemsCollection;
-	var itemModel;
-	
-	var DampStore = {
-		getItems: function getItems(options, callback) {
-			itemsCollection = new ShirtCollection(options);
-			itemsCollection.fetch({
-				success: function success(collection, response) {
-					itemsCollection.set(response, { silent: true });
-					callback(itemsCollection.models);
-				}
-			});
-		},
-		getItemDetail: function getItemDetail(options, callback) {
-			itemModel = new ShirtModel(options);
-			itemModel.fetch({
-				success: function success(model, response) {
-					itemModel.set(response, { silent: true });
-					callback(itemModel);
-				}
-			});
-		}
-	};
-	
-	module.exports = DampStore;
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var guid = __webpack_require__(185);
-	var listeners = {};
-	
-	module.exports = {
-	    register: function register(cb) {
-	        var id = guid.raw();
-	        listeners[id] = cb;
-	        return id;
-	    },
-	    dispatch: function dispatch(payload) {
-	        console.info("Dispatching...", payload);
-	        for (var id in listeners) {
-	            var listener = listeners[id];
-	            listener(payload);
-	        }
-	    }
-	};
-
-/***/ },
-/* 185 */
-/***/ function(module, exports) {
-
-	(function () {
-	  var validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
-	
-	  function gen(count) {
-	    var out = "";
-	    for (var i=0; i<count; i++) {
-	      out += (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-	    }
-	    return out;
-	  }
-	
-	  function Guid(guid) {
-	    if (!guid) throw new TypeError("Invalid argument; `value` has no value.");
-	      
-	    this.value = Guid.EMPTY;
-	    
-	    if (guid && guid instanceof Guid) {
-	      this.value = guid.toString();
-	
-	    } else if (guid && Object.prototype.toString.call(guid) === "[object String]" && Guid.isGuid(guid)) {
-	      this.value = guid;
-	    }
-	    
-	    this.equals = function(other) {
-	      // Comparing string `value` against provided `guid` will auto-call
-	      // toString on `guid` for comparison
-	      return Guid.isGuid(other) && this.value == other;
-	    };
-	
-	    this.isEmpty = function() {
-	      return this.value === Guid.EMPTY;
-	    };
-	    
-	    this.toString = function() {
-	      return this.value;
-	    };
-	    
-	    this.toJSON = function() {
-	      return this.value;
-	    };
-	  };
-	
-	  Guid.EMPTY = "00000000-0000-0000-0000-000000000000";
-	
-	  Guid.isGuid = function(value) {
-	    return value && (value instanceof Guid || validator.test(value.toString()));
-	  };
-	
-	  Guid.create = function() {
-	    return new Guid([gen(2), gen(1), gen(1), gen(1), gen(3)].join("-"));
-	  };
-	
-	  Guid.raw = function() {
-	    return [gen(2), gen(1), gen(1), gen(1), gen(3)].join("-");
-	  };
-	
-	  if(typeof module != 'undefined' && module.exports) {
-	    module.exports = Guid;
-	  }
-	  else if (typeof window != 'undefined') {
-	    window.Guid = Guid;
-	  }
-	})();
-
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var $ = __webpack_require__(187);
-	var Backbone = __webpack_require__(188);
-	
-	var URI = __webpack_require__(189);
-	
-	var ShirtsModel = __webpack_require__(194);
-	
-	var ShirtCollection = Backbone.Collection.extend({
-		model: ShirtsModel,
-		url: function url() {
-			return URI('/api/products').query(this.params);
-		},
-		initialize: function initialize(options) {
-			var page = options.page || 1;
-			var pageSize = options.pageSize || 25;
-			this.orderBy = options.orderBy || 'dateAdded';
-			var tagId = options.tagId || 0;
-			//
-			// this.listenTo( this, "sort", this.render );
-			this.params = {
-				page: page,
-				pageSize: pageSize,
-				orderBy: this.orderBy,
-				tagId: tagId
-			};
-		},
-		comparator: function comparator(model) {
-			return -model.get(this.orderBy);
-		}
-	});
-	
-	module.exports = ShirtCollection;
-
-/***/ },
-/* 187 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*eslint-disable no-unused-vars*/
@@ -33501,7 +33331,938 @@
 
 
 /***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var AppDispatcher = __webpack_require__(182);
+	var Consts = __webpack_require__(186);
+	
+	var DampActions = {
+		sortItems: function sortItems(data) {
+			AppDispatcher.dispatch({
+				actionType: Consts.ActionTypes.Sort_Items,
+				data: data
+			});
+		}
+	};
+	
+	module.exports = DampActions;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Dispatcher = __webpack_require__(183).Dispatcher;
+	module.exports = new Dispatcher();
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	module.exports.Dispatcher = __webpack_require__(184);
+
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule Dispatcher
+	 * 
+	 * @preventMunge
+	 */
+	
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var invariant = __webpack_require__(185);
+	
+	var _prefix = 'ID_';
+	
+	/**
+	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
+	 * different from generic pub-sub systems in two ways:
+	 *
+	 *   1) Callbacks are not subscribed to particular events. Every payload is
+	 *      dispatched to every registered callback.
+	 *   2) Callbacks can be deferred in whole or part until other callbacks have
+	 *      been executed.
+	 *
+	 * For example, consider this hypothetical flight destination form, which
+	 * selects a default city when a country is selected:
+	 *
+	 *   var flightDispatcher = new Dispatcher();
+	 *
+	 *   // Keeps track of which country is selected
+	 *   var CountryStore = {country: null};
+	 *
+	 *   // Keeps track of which city is selected
+	 *   var CityStore = {city: null};
+	 *
+	 *   // Keeps track of the base flight price of the selected city
+	 *   var FlightPriceStore = {price: null}
+	 *
+	 * When a user changes the selected city, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'city-update',
+	 *     selectedCity: 'paris'
+	 *   });
+	 *
+	 * This payload is digested by `CityStore`:
+	 *
+	 *   flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'city-update') {
+	 *       CityStore.city = payload.selectedCity;
+	 *     }
+	 *   });
+	 *
+	 * When the user selects a country, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'country-update',
+	 *     selectedCountry: 'australia'
+	 *   });
+	 *
+	 * This payload is digested by both stores:
+	 *
+	 *   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       CountryStore.country = payload.selectedCountry;
+	 *     }
+	 *   });
+	 *
+	 * When the callback to update `CountryStore` is registered, we save a reference
+	 * to the returned token. Using this token with `waitFor()`, we can guarantee
+	 * that `CountryStore` is updated before the callback that updates `CityStore`
+	 * needs to query its data.
+	 *
+	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       // `CountryStore.country` may not be updated.
+	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
+	 *       // `CountryStore.country` is now guaranteed to be updated.
+	 *
+	 *       // Select the default city for the new country
+	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
+	 *     }
+	 *   });
+	 *
+	 * The usage of `waitFor()` can be chained, for example:
+	 *
+	 *   FlightPriceStore.dispatchToken =
+	 *     flightDispatcher.register(function(payload) {
+	 *       switch (payload.actionType) {
+	 *         case 'country-update':
+	 *         case 'city-update':
+	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
+	 *           FlightPriceStore.price =
+	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
+	 *           break;
+	 *     }
+	 *   });
+	 *
+	 * The `country-update` payload will be guaranteed to invoke the stores'
+	 * registered callbacks in order: `CountryStore`, `CityStore`, then
+	 * `FlightPriceStore`.
+	 */
+	
+	var Dispatcher = (function () {
+	  function Dispatcher() {
+	    _classCallCheck(this, Dispatcher);
+	
+	    this._callbacks = {};
+	    this._isDispatching = false;
+	    this._isHandled = {};
+	    this._isPending = {};
+	    this._lastID = 1;
+	  }
+	
+	  /**
+	   * Registers a callback to be invoked with every dispatched payload. Returns
+	   * a token that can be used with `waitFor()`.
+	   */
+	
+	  Dispatcher.prototype.register = function register(callback) {
+	    var id = _prefix + this._lastID++;
+	    this._callbacks[id] = callback;
+	    return id;
+	  };
+	
+	  /**
+	   * Removes a callback based on its token.
+	   */
+	
+	  Dispatcher.prototype.unregister = function unregister(id) {
+	    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
+	    delete this._callbacks[id];
+	  };
+	
+	  /**
+	   * Waits for the callbacks specified to be invoked before continuing execution
+	   * of the current callback. This method should only be used by a callback in
+	   * response to a dispatched payload.
+	   */
+	
+	  Dispatcher.prototype.waitFor = function waitFor(ids) {
+	    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
+	    for (var ii = 0; ii < ids.length; ii++) {
+	      var id = ids[ii];
+	      if (this._isPending[id]) {
+	        !this._isHandled[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Circular dependency detected while ' + 'waiting for `%s`.', id) : invariant(false) : undefined;
+	        continue;
+	      }
+	      !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
+	      this._invokeCallback(id);
+	    }
+	  };
+	
+	  /**
+	   * Dispatches a payload to all registered callbacks.
+	   */
+	
+	  Dispatcher.prototype.dispatch = function dispatch(payload) {
+	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
+	    this._startDispatching(payload);
+	    try {
+	      for (var id in this._callbacks) {
+	        if (this._isPending[id]) {
+	          continue;
+	        }
+	        this._invokeCallback(id);
+	      }
+	    } finally {
+	      this._stopDispatching();
+	    }
+	  };
+	
+	  /**
+	   * Is this Dispatcher currently dispatching.
+	   */
+	
+	  Dispatcher.prototype.isDispatching = function isDispatching() {
+	    return this._isDispatching;
+	  };
+	
+	  /**
+	   * Call the callback stored with the given id. Also do some internal
+	   * bookkeeping.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
+	    this._isPending[id] = true;
+	    this._callbacks[id](this._pendingPayload);
+	    this._isHandled[id] = true;
+	  };
+	
+	  /**
+	   * Set up bookkeeping needed when dispatching.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
+	    for (var id in this._callbacks) {
+	      this._isPending[id] = false;
+	      this._isHandled[id] = false;
+	    }
+	    this._pendingPayload = payload;
+	    this._isDispatching = true;
+	  };
+	
+	  /**
+	   * Clear bookkeeping used for dispatching.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
+	    delete this._pendingPayload;
+	    this._isDispatching = false;
+	  };
+	
+	  return Dispatcher;
+	})();
+	
+	module.exports = Dispatcher;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var invariant = function (condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var keyMirror = __webpack_require__(187);
+	
+	module.exports = {
+		ActionTypes: keyMirror({
+			Sort_Items: null
+		})
+	};
+
+/***/ },
+/* 187 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2014 Facebook, Inc.
+	 *
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License.
+	 * You may obtain a copy of the License at
+	 *
+	 * http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 *
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Constructs an enumeration with keys equal to their value.
+	 *
+	 * For example:
+	 *
+	 *   var COLORS = keyMirror({blue: null, red: null});
+	 *   var myColor = COLORS.blue;
+	 *   var isColorValid = !!COLORS[myColor];
+	 *
+	 * The last line could not be performed if the values of the generated enum were
+	 * not equal to their keys.
+	 *
+	 *   Input:  {key1: val1, key2: val2}
+	 *   Output: {key1: key1, key2: key2}
+	 *
+	 * @param {object} obj
+	 * @return {object}
+	 */
+	var keyMirror = function(obj) {
+	  var ret = {};
+	  var key;
+	  if (!(obj instanceof Object && !Array.isArray(obj))) {
+	    throw new Error('keyMirror(...): Argument must be an object.');
+	  }
+	  for (key in obj) {
+	    if (!obj.hasOwnProperty(key)) {
+	      continue;
+	    }
+	    ret[key] = key;
+	  }
+	  return ret;
+	};
+	
+	module.exports = keyMirror;
+
+
+/***/ },
 /* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(_) {'use strict';
+	
+	var EventEmitter = __webpack_require__(192).EventEmitter;
+	var AppDispatcher = __webpack_require__(182);
+	var Constants = __webpack_require__(186);
+	var assign = __webpack_require__(4);
+	var ShirtCollection = __webpack_require__(193);
+	var ShirtModel = __webpack_require__(200);
+	var items = {};
+	var itemsCollection;
+	var itemModel;
+	
+	var DampStore = assign({}, EventEmitter.prototype, {
+		addEventListener: function addEventListener(actionType, callback) {
+			if (_.has(Constants.ActionTypes, actionType)) {
+				this.addListener(actionType, callback);
+			} else {
+				console.log('Event type must be defined in constants.ActionTypes.');
+			}
+		},
+		removeEventListener: function removeEventListener(actionType, callback) {
+			if (_.has(Constants.ActionTypes, actionType)) {
+				this.removeListener(actionType, callback);
+			} else {
+				console.log('Event type must be defined in constants.ActionTypes.');
+			}
+		},
+		ActionTypes: Constants.ActionTypes,
+	
+		getItems: function getItems(options, callback) {
+			itemsCollection = new ShirtCollection(options);
+			itemsCollection.fetch({
+				success: function success(collection, response) {
+					itemsCollection.set(response, { silent: true });
+					if (typeof callback === 'function') {
+						callback(itemsCollection.models);
+					} else {}
+				}
+			});
+		},
+		getItemDetail: function getItemDetail(options, callback) {
+			itemModel = new ShirtModel(options);
+			itemModel.fetch({
+				success: function success(model, response) {
+					itemModel.set(response, { silent: true });
+					callback(itemModel);
+				}
+			});
+		},
+		dispatchToken: AppDispatcher.register(function (action) {
+			switch (action.actionType) {
+				case DampStore.ActionTypes.Sort_Items:
+					DampStore.getItems(action.data, DampStore.emit(DampStore.ActionTypes.Sort_Items, action.data));
+					break;
+				default:
+					return true;
+			}
+			return true;
+		})
+	});
+	
+	module.exports = DampStore;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(176)))
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDom = __webpack_require__(35);
+	var _ = __webpack_require__(176);
+	var $ = __webpack_require__(180);
+	
+	var Thumbnails = React.createClass({
+		displayName: 'Thumbnails',
+	
+		getInitialState: function getInitialState() {
+			return {
+				numPerRow: 6,
+				paddingAndBorder: 16
+			};
+		},
+		propTypes: function propTypes() {
+			return {
+				items: React.PropTypes.object,
+				containerWidth: React.PropTypes.number
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			var containerWidth = $(this.refs.container).width();
+			console.log("WIDTH: " + containerWidth);
+	
+			var thumbnailWidth = Math.floor(containerWidth / this.state.numPerRow);
+			$(ReactDom.findDOMNode(this.refs.images)).find('img').width(thumbnailWidth - this.state.paddingAndBorder);
+		},
+		render: function render() {
+			console.log('Thumbnails Rendered');
+	
+			var thumbnails = this.props.items.map(_.bind(function (item, i) {
+	
+				var hrefUrl = '/' + item.get('slug') + '/shirt/' + item.get('dampId');
+	
+				return React.createElement(
+					'div',
+					{ className: 'product', key: i },
+					React.createElement(
+						'a',
+						{ className: 'product-link', href: hrefUrl, 'data-id': item.get('dampId') },
+						React.createElement('img', { className: 'product-image', alt: item.get('title'), title: item.get('title'), src: item.get('image') })
+					),
+					React.createElement(
+						'div',
+						{ className: 'thumbs', 'data-id': item.get('dampId') },
+						React.createElement(
+							'span',
+							{ className: 'badge vote-count' },
+							item.get('thumbs'),
+							' votes'
+						),
+						React.createElement(
+							'div',
+							{ className: 'thumbs_info' },
+							React.createElement(
+								'div',
+								{ className: 'btn btn-danger vote-down' },
+								React.createElement(
+									'span',
+									{ className: 'txt' },
+									'Meh'
+								)
+							),
+							React.createElement(
+								'div',
+								{ className: 'btn btn-primary l_margin_5 vote-up' },
+								React.createElement(
+									'span',
+									{ className: 'txt' },
+									'Like'
+								)
+							),
+							React.createElement(
+								'div',
+								{ className: 'date-added' },
+								item.get('dateAdded')
+							)
+						)
+					)
+				);
+			}, this));
+	
+			return React.createElement(
+				'div',
+				{ className: 'product-list-container', ref: 'container' },
+				React.createElement(
+					'div',
+					{ className: 'product-list', ref: 'images' },
+					thumbnails
+				)
+			);
+		}
+	});
+	
+	module.exports = Thumbnails;
+
+/***/ },
+/* 190 */,
+/* 191 */,
+/* 192 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+	
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+	
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+	
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+	
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+	
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+	
+	EventEmitter.prototype.emit = function(type) {
+	  var er, handler, len, args, i, listeners;
+	
+	  if (!this._events)
+	    this._events = {};
+	
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
+	    }
+	  }
+	
+	  handler = this._events[type];
+	
+	  if (isUndefined(handler))
+	    return false;
+	
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++)
+	      listeners[i].apply(this, args);
+	  }
+	
+	  return true;
+	};
+	
+	EventEmitter.prototype.addListener = function(type, listener) {
+	  var m;
+	
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+	
+	  if (!this._events)
+	    this._events = {};
+	
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
+	
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);
+	  else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+	
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+	
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+	
+	  return this;
+	};
+	
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+	
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+	
+	  var fired = false;
+	
+	  function g() {
+	    this.removeListener(type, g);
+	
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+	
+	  g.listener = listener;
+	  this.on(type, g);
+	
+	  return this;
+	};
+	
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function(type, listener) {
+	  var list, position, length, i;
+	
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+	
+	  if (!this._events || !this._events[type])
+	    return this;
+	
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+	
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
+	    delete this._events[type];
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
+	        position = i;
+	        break;
+	      }
+	    }
+	
+	    if (position < 0)
+	      return this;
+	
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+	
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	  }
+	
+	  return this;
+	};
+	
+	EventEmitter.prototype.removeAllListeners = function(type) {
+	  var key, listeners;
+	
+	  if (!this._events)
+	    return this;
+	
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
+	    return this;
+	  }
+	
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+	
+	  listeners = this._events[type];
+	
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length)
+	      this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+	
+	  return this;
+	};
+	
+	EventEmitter.prototype.listeners = function(type) {
+	  var ret;
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
+	  return ret;
+	};
+	
+	EventEmitter.prototype.listenerCount = function(type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+	
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
+	  }
+	  return 0;
+	};
+	
+	EventEmitter.listenerCount = function(emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+	
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+	
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+	
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+	
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var $ = __webpack_require__(180);
+	var Backbone = __webpack_require__(194);
+	
+	var URI = __webpack_require__(195);
+	
+	var ShirtsModel = __webpack_require__(200);
+	
+	var ShirtCollection = Backbone.Collection.extend({
+		model: ShirtsModel,
+		url: function url() {
+			return URI('/api/products').query(this.params);
+		},
+		initialize: function initialize(options) {
+			var page = options.page || 1;
+			var pageSize = options.pageSize || 25;
+			this.orderBy = options.orderBy || 'dateAdded';
+			this.orderDirection = options.orderDirection || 'ASC';
+			var tagId = options.tagId || 0;
+			//
+			// this.listenTo( this, "sort", this.render );
+			this.params = {
+				page: page,
+				pageSize: pageSize,
+				orderBy: this.orderBy,
+				orderDirection: this.orderDirection,
+				tagId: tagId
+			};
+		},
+		comparator: function comparator(model) {
+			return -model.get(this.orderBy);
+		}
+	});
+	
+	module.exports = ShirtCollection;
+
+/***/ },
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {//     Backbone.js 1.3.3
@@ -33520,7 +34281,7 @@
 	
 	  // Set up Backbone appropriately for the environment. Start with AMD.
 	  if (true) {
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(180), __webpack_require__(187), exports], __WEBPACK_AMD_DEFINE_RESULT__ = function(_, $, exports) {
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(176), __webpack_require__(180), exports], __WEBPACK_AMD_DEFINE_RESULT__ = function(_, $, exports) {
 	      // Export global even in AMD case in case this script is loaded with
 	      // others that may still expect a global Backbone.
 	      root.Backbone = factory(root, exports, _, $);
@@ -35428,7 +36189,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 189 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -35449,7 +36210,7 @@
 	  // https://github.com/umdjs/umd/blob/master/returnExports.js
 	  if (true) {
 	    // Node
-	    module.exports = factory(__webpack_require__(190), __webpack_require__(192), __webpack_require__(193));
+	    module.exports = factory(__webpack_require__(196), __webpack_require__(198), __webpack_require__(199));
 	  } else if (typeof define === 'function' && define.amd) {
 	    // AMD. Register as an anonymous module.
 	    define(['./punycode', './IPv6', './SecondLevelDomains'], factory);
@@ -37568,7 +38329,7 @@
 
 
 /***/ },
-/* 190 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! http://mths.be/punycode v1.2.3 by @mathias */
@@ -38078,10 +38839,10 @@
 	
 	}(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(191)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197)(module), (function() { return this; }())))
 
 /***/ },
-/* 191 */
+/* 197 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -38097,7 +38858,7 @@
 
 
 /***/ },
-/* 192 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -38291,7 +39052,7 @@
 
 
 /***/ },
-/* 193 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -38538,12 +39299,12 @@
 
 
 /***/ },
-/* 194 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Backbone = __webpack_require__(188);
+	var Backbone = __webpack_require__(194);
 	
 	var ShirtsModel = Backbone.Model.extend({
 		url: function url() {
@@ -38559,371 +39320,6 @@
 	});
 	
 	module.exports = ShirtsModel;
-
-/***/ },
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */,
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */,
-/* 423 */,
-/* 424 */,
-/* 425 */,
-/* 426 */,
-/* 427 */,
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */,
-/* 433 */,
-/* 434 */,
-/* 435 */,
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
-/* 440 */,
-/* 441 */,
-/* 442 */,
-/* 443 */,
-/* 444 */,
-/* 445 */,
-/* 446 */,
-/* 447 */,
-/* 448 */,
-/* 449 */,
-/* 450 */,
-/* 451 */,
-/* 452 */,
-/* 453 */,
-/* 454 */,
-/* 455 */,
-/* 456 */,
-/* 457 */,
-/* 458 */,
-/* 459 */,
-/* 460 */,
-/* 461 */,
-/* 462 */,
-/* 463 */,
-/* 464 */,
-/* 465 */,
-/* 466 */,
-/* 467 */,
-/* 468 */,
-/* 469 */,
-/* 470 */,
-/* 471 */,
-/* 472 */,
-/* 473 */,
-/* 474 */,
-/* 475 */,
-/* 476 */,
-/* 477 */,
-/* 478 */,
-/* 479 */,
-/* 480 */,
-/* 481 */,
-/* 482 */,
-/* 483 */,
-/* 484 */,
-/* 485 */,
-/* 486 */,
-/* 487 */,
-/* 488 */,
-/* 489 */,
-/* 490 */,
-/* 491 */,
-/* 492 */,
-/* 493 */,
-/* 494 */,
-/* 495 */,
-/* 496 */,
-/* 497 */,
-/* 498 */,
-/* 499 */,
-/* 500 */,
-/* 501 */,
-/* 502 */,
-/* 503 */,
-/* 504 */,
-/* 505 */,
-/* 506 */,
-/* 507 */,
-/* 508 */,
-/* 509 */,
-/* 510 */,
-/* 511 */,
-/* 512 */,
-/* 513 */,
-/* 514 */,
-/* 515 */,
-/* 516 */,
-/* 517 */,
-/* 518 */,
-/* 519 */,
-/* 520 */,
-/* 521 */,
-/* 522 */,
-/* 523 */,
-/* 524 */,
-/* 525 */,
-/* 526 */,
-/* 527 */,
-/* 528 */,
-/* 529 */,
-/* 530 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	
-	var SideBar = React.createClass({
-		displayName: "SideBar",
-	
-		propTypes: function propTypes() {
-			return {};
-		},
-		render: function render() {
-	
-			return React.createElement(
-				"a",
-				{ className: "banner_novelty", href: "/novelty_gifts/tag/474?utm_campaign=Global&utm_source=Damp&utm_medium=NoveltyBanner" },
-				React.createElement(
-					"span",
-					null,
-					"Novelty Gifts"
-				)
-			);
-		}
-	});
-	
-	module.exports = SideBar;
 
 /***/ }
 /******/ ]);

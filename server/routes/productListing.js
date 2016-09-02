@@ -9,11 +9,13 @@ module.exports = function( app ) {
 
 		// Product listing
 		app.use( '/api/products', function( req, res ) {
-
+			console.log("Q: " + JSON.stringify( req.query ) );
 			var productListing = new sql.Request();
+
 			var page           = req.query.page || 1;
 			var pageSize       = req.query.pageSize || 25;
 			var orderBy        = req.query.orderBy || 'dateAdded';
+			var orderDirection = req.query.orderDirection || 'ASC';
 			var tagId          = req.query.tagId || 0;
 
 			productListing.input( 'TagID', sql.Int, tagId );
@@ -22,6 +24,7 @@ module.exports = function( app ) {
 			productListing.input( 'Page', sql.Int, page );
 			productListing.input( 'PageSize', sql.Int, pageSize );
 			productListing.input( 'OrderBy', sql.NVarChar, orderBy );
+			productListing.input( 'OrderDirection', sql.NVarChar, orderDirection );
 
 			productListing.execute( 'usp_Damp_Products', function( err, recordset, returnValue ) {
 				app = recordset[0];

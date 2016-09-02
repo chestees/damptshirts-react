@@ -4,7 +4,13 @@ var _ = require( 'underscore' );
 var $ = require( 'jquery' );
 
 var Thumbnails = React.createClass( {
-	propTypes: function () {
+	getInitialState: function () {
+		return {
+			numPerRow: 6
+			, paddingAndBorder: 16
+		};
+	}
+	, propTypes: function () {
 		return {
 			items: React.PropTypes.object
 			, containerWidth: React.PropTypes.number
@@ -12,11 +18,10 @@ var Thumbnails = React.createClass( {
 	}
 	, componentDidMount: function() {
 		var containerWidth = $( this.refs.container ).width();
-		console.log('Thumbnails Mounted');
 		console.log( "WIDTH: " + containerWidth );
 
-		var thumbnailWidth = Math.floor( containerWidth / 6 );
-		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( thumbnailWidth );
+		var thumbnailWidth = Math.floor( containerWidth / this.state.numPerRow );
+		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( thumbnailWidth - this.state.paddingAndBorder );
 	}
 	, render: function () {
 		console.log('Thumbnails Rendered');

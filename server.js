@@ -40,9 +40,11 @@ app.get('/', function( req, res ) {
 	var generated;
 	var url = app.url + '/api/products'
 	var queryString = {
-		'Page': 1
-		, 'PageSize': 25
-		, 'TagId': 0
+		'page': 1
+		, 'pageSize': 25
+		, 'tagId': 0
+		, 'orderDirection': 'DESC'
+		, 'orderBy': 'thumbs'
 	}
 
 	application = React.createFactory( require('./app/js/app.jsx') );
@@ -61,7 +63,7 @@ app.get('/', function( req, res ) {
 
 			res.render('./../app/index.ejs', { reactOutput: generated, tagId: queryString.TagId } );
 		} else {
-			console.log( "Homepage GET Error: " + JSON.stringify( err ) );
+			console.log( "Homepage GET Error: " + JSON.stringify( queryString ) );
 		}
 	});
 });
