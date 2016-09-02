@@ -24,8 +24,6 @@ var Thumbnails = React.createClass( {
 		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( thumbnailWidth - this.state.paddingAndBorder );
 	}
 	, render: function () {
-		console.log('Thumbnails Rendered');
-
 		var thumbnails = this.props.items.map( _.bind( function ( item, i ) {
 
 			var hrefUrl = '/' + item.get( 'slug' ) + '/shirt/' + item.get( 'dampId' );

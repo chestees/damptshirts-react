@@ -7,6 +7,7 @@ module.exports = {
 	entry: {
 		'app': './app.js'
 		, 'detail': './detail.js'
+		, 'style': './css/styles.less'
 	},
 	watch: true,
 	output: {

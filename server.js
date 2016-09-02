@@ -17,6 +17,7 @@ app.config = {
 }
 
 app.url = "http://damptshirts-react.herokuapp.com";
+// app.url = "http://localhost:7000";
 
 // Get the Vendors collection
 request.get( { url: app.url + '/api/vendors', qs: '' }, function( err, response, body ) {
@@ -44,7 +45,7 @@ app.get('/', function( req, res ) {
 		, 'pageSize': 25
 		, 'tagId': 0
 		, 'orderDirection': 'DESC'
-		, 'orderBy': 'thumbs'
+		, 'orderBy': 'dateAdded'
 	}
 
 	application = React.createFactory( require('./app/js/app.jsx') );
@@ -61,7 +62,7 @@ app.get('/', function( req, res ) {
 				items: itemsCollection
 			} ) );
 
-			res.render('./../app/index.ejs', { reactOutput: generated, tagId: queryString.TagId } );
+			res.render('./../app/index.ejs', { reactOutput: generated, tagId: queryString.tagId } );
 		} else {
 			console.log( "Homepage GET Error: " + JSON.stringify( queryString ) );
 		}

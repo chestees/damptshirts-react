@@ -6762,27 +6762,6 @@ h1 a:active {
   color: #fff !important;
   background-color: #ca4040 !important;
 }
-.main_middle.blog h1 a {
-  padding: 0;
-}
-.main.blog {
-  padding: 136px 25px 30px;
-}
-.main_left.blog {
-  width: 300px;
-  margin: 0;
-}
-.main_left.blog p {
-  margin-bottom: 15px;
-}
-.main.blog .content {
-  margin-left: 315px;
-  margin-right: 195px;
-}
-.col_3.blog {
-  float: right;
-  width: 180px;
-}
 h2 {
   font-size: 20px;
   font-weight: bold;
@@ -6798,12 +6777,6 @@ h4 {
 p {
   line-height: 150%;
   margin-bottom: 8px;
-}
-.floatleft {
-  float: left;
-}
-.floatright {
-  float: right;
 }
 .txt_black {
   color: #1A1517;
@@ -6832,28 +6805,6 @@ p {
 /**********************************************/
 /* PAGE STRUCTURE */
 /**********************************************/
-.layout header {
-  background: url('/img/header_bg.jpg') 0 0 repeat-x transparent;
-  width: 100%;
-  height: 126px;
-  z-index: 999;
-  position: fixed;
-  left: 0;
-}
-.layout header #logo {
-  background: url('/img/logo.png') 0 0 no-repeat;
-  margin: 10px 0 0 25px;
-  float: left;
-  width: 178px;
-  height: 116px;
-  cursor: pointer;
-}
-.layout header .header-items {
-  margin-top: 15px;
-}
-.layout header .header-items .nav > li {
-  margin-left: 10px;
-}
 .layout main {
   padding-top: 130px;
   padding-bottom: 100px;
@@ -6864,7 +6815,6 @@ p {
 .module_1 {
   border: 1px solid #B2B7BB;
   background: #FAFAFA;
-  background: -moz-linear-gradient(top, #FAFAFA, #EEEDE4);
   border-radius: 5px;
   padding: 5px;
 }
@@ -7129,122 +7079,6 @@ a.details:hover {
   text-decoration: none;
 }
 /**********************************************/
-/* BLOG */
-/**********************************************/
-.BlogPost {
-  border: 1px solid #B2B7BB;
-  background: -moz-linear-gradient(top, #FAFAFA, #EEEDE4);
-  margin-bottom: 20px;
-  display: block;
-}
-.BlogPost p {
-  margin-bottom: 8px;
-}
-.BlogPost_inner {
-  padding: 9px;
-}
-.BlogPost_inner img {
-  border: 1px solid #B2B7BB;
-}
-.BlogPost .mod-more {
-  height: 22px;
-}
-.BlogPost a.more-link {
-  border-top: 1px solid #B93636;
-  display: block;
-  height: 1px;
-  position: relative;
-  top: 11px;
-  margin-bottom: 20px;
-}
-.BlogPost a.more-link:hover,
-.BlogPost a.more-link:active {
-  background-color: none;
-}
-.BlogPost a.more-link span.moretext {
-  background: #fff;
-  padding: 3px;
-  position: absolute;
-  top: -10px;
-  font-weight: 700;
-  right: 15px;
-  padding: 0 6px;
-  border-radius: 5px;
-}
-.BlogPost a.more-link span.moretext:hover {
-  background: #3F4648;
-  color: #fff;
-}
-.navigation {
-  display: block;
-  margin-bottom: 10px;
-}
-.navigation .previous {
-  float: left;
-}
-.navigation .next {
-  float: right;
-}
-.navigation .previous a,
-.navigation .next a {
-  font-size: 12px;
-  display: block;
-}
-.PostMeta {
-  font-size: 13px;
-  border: 1px solid #B2B7BB;
-  background: -moz-linear-gradient(top, #FAFAFA, #EEEDE4);
-  margin-bottom: 10px;
-  float: left;
-  width: 100%;
-}
-.PostMeta_inner {
-  border-bottom: 1px solid #FAFAFA;
-  border-right: 1px solid #FAFAFA;
-  padding: 5px;
-}
-.PostMeta .PostMeta_inner .tags-mod {
-  display: block;
-}
-.PostMeta .PostMeta_inner .tags-mod .tags-title {
-  float: left;
-}
-.PostMeta .PostMeta_inner .tags-mod .tags-links {
-  margin-left: 75px;
-}
-.PostMeta .PostMeta_inner .cat-mod {
-  display: block;
-}
-.PostMeta .PostMeta_inner .cat-mod .cat-title {
-  float: left;
-}
-.PostMeta .PostMeta_inner .cat-mod .cat-links {
-  margin-left: 75px;
-}
-.blog_post_left {
-  float: left;
-  text-align: center;
-  margin: 0 15px 8px 0;
-}
-.blog_post_right {
-  display: block;
-}
-.blog_post_right .social {
-  padding: 15px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-}
-.blog_item {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed #B2B7BB;
-}
-.banner_bottom {
-  margin: 0 auto;
-  padding-bottom: 100px;
-  text-align: center;
-}
-/**********************************************/
 /* FOOTER */
 /**********************************************/
 .footer_wrap {
@@ -7293,6 +7127,28 @@ a.banner_novelty:active {
 }
 .slugList_Tag {
   float: right;
+}
+header {
+  background: url('/img/header_bg.jpg') 0 0 repeat-x transparent;
+  width: 100%;
+  height: 126px;
+  z-index: 999;
+  position: fixed;
+  left: 0;
+}
+header #logo {
+  background: url('/img/logo.png') 0 0 no-repeat;
+  margin: 10px 0 0 25px;
+  width: 178px;
+  height: 116px;
+  cursor: pointer;
+}
+header .header-items {
+  margin-top: 15px;
+  margin-left: 203px;
+}
+header .header-items .nav > li {
+  margin-left: 10px;
 }
 .detail .detail-container h1 {
   margin: 0 0 15px;

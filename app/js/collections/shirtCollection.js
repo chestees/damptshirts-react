@@ -11,11 +11,11 @@ var ShirtCollection = Backbone.Collection.extend({
 		return URI( '/api/products' ).query( this.params );
 	}
 	, initialize: function( options ) {
-		var page      = options.page || 1;
-		var pageSize  = options.pageSize || 25;
-		this.orderBy  = options.orderBy || 'dateAdded';
-		this.orderDirection = options.orderDirection || 'ASC';
-		var tagId     = options.tagId || 0;
+		var page = options.page || 1;
+		var pageSize = options.pageSize || 25;
+		this.orderBy = options.orderBy || 'dateAdded';
+		this.orderDirection = options.orderDirection || 'DESC';
+		var tagId = options.tagId || 0;
 		//
 		// this.listenTo( this, "sort", this.render );
 		this.params = {

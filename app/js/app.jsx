@@ -1,24 +1,31 @@
 var React = require('react');
 var _ = require( 'underscore' );
 
+var DampStore = require( './stores/dampStore' );
+
 var Header = require( './components/header' );
 var SideBar = require( './components/sideBar' );
 var OptionsBar = require( './components/options-bar' );
 var Thumbnails = require( './components/thumbnails' );
 
 var App = React.createClass( {
-	propTypes: function () {
+	getInitialState: function () {
+		return {
+			items: this.props.items
+		};
+	}
+	, propTypes: function () {
 		return {
 			items: React.PropTypes.object
 			, page: React.PropTypes.string
 		}
 	}
 	, componentDidMount: function () {
-		console.log('App Mounted');
+		DampStore.addEventListener( DampStore.ActionTypes.Refresh_Thumbnails, this._refresh );
 	}
 	, render: function () {
 
-		var content = ( <Thumbnails items={ this.props.items } /> );
+		var content = ( <Thumbnails items={ this.state.items } /> );
 		var sideBar = ( <SideBar /> );
 		var optionsBar = ( <OptionsBar /> );
 
@@ -38,6 +45,11 @@ var App = React.createClass( {
 				</main>
 			</div>
 		);
+	}
+	, _refresh: function ( data ) {
+		this.setState( {
+			items: data
+		} );
 	}
 } );
 
