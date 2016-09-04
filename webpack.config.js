@@ -1,19 +1,19 @@
 var webpack = require('webpack');
 var path = require('path');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	context: path.resolve('app'),
 	entry: {
 		'app': './app.js'
 		, 'detail': './detail.js'
-		, 'style': './css/styles.less'
+		// , 'style': './css/styles.less'
 	},
 	watch: true,
 	output: {
-		path: path.resolve('app/js/'),
-		publicPath: '/app/js/',
-		filename: '[name].js'
+		path: path.resolve('app/'),
+		publicPath: path.resolve('app/'),
+		filename: '[name].bundle.js'
 	},
 	devtool: 'source-map',
 	module: {
@@ -46,8 +46,8 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
-			Backbone : "backbone",
-			_ : "underscore"
+			Backbone : 'backbone',
+			_ : 'underscore'
 		})
 	],
 	resolve: {
