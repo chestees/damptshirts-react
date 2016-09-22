@@ -9,6 +9,14 @@ var Backbone = require('backbone');
 var _ = require( 'underscore' );
 require('babel-register');
 
+app.userConfig = {
+	page: 1,
+	perRow: 6,
+	numRows: 5,
+	pageSize: 30,
+	tagId: 0
+}
+
 app.config = {
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
@@ -16,22 +24,24 @@ app.config = {
 	database: process.env.DB_NAME
 }
 
-app.url = "http://damptshirts-react.herokuapp.com";
-// app.url = "http://localhost:7000";
+// app.url = "http://damptshirts-react.herokuapp.com";
+app.url = "http://localhost:7000";
 
 // Get the Vendors collection
-request.get( { url: app.url + '/api/vendors', qs: '' }, function( err, response, body ) {
+app.getVendors = function() {
+	request.get( { url: app.url + '/api/vendors', qs: '' }, function( err, response, body ) {
 
-	if ( !err && response.statusCode == 200 ) {
-		var parsed = JSON.parse( body );
+		if ( !err && response.statusCode == 200 ) {
+			var parsed = JSON.parse( body );
 
-		app.vendorsCollection = new Backbone.Collection()
-		app.vendorsCollection.set( parsed );
+			app.vendorsCollection = new Backbone.Collection()
+			app.vendorsCollection.set( parsed );
 
-	} else {
-		console.log( "Vendors GET Error: " + JSON.stringify( err ) );
-	}
-});
+		} else {
+			console.log( "Vendors GET Error: " + JSON.stringify( err ) );
+		}
+	});
+}
 
 app.use( express.static( __dirname + '/app' ) );
 
@@ -41,14 +51,16 @@ app.get('/', function( req, res ) {
 	var generated;
 	var url = app.url + '/api/products'
 	var queryString = {
-		'page': 1
-		, 'pageSize': 25
-		, 'tagId': 0
-		, 'orderDirection': 'DESC'
+		'page': app.userConfig.page
+		, 'pageSize': app.userConfig.perRow * app.userConfig.numRows
 		, 'orderBy': 'dateAdded'
+		, 'orderDirection': 'DESC'
+		, 'tagId': 0
 	}
 
 	application = React.createFactory( require('./app/js/app.jsx') );
+
+	app.getVendors();
 
 	request.get( { url: url, qs: queryString }, function( err, response, body ) {
 
@@ -59,10 +71,10 @@ app.get('/', function( req, res ) {
 			itemsCollection.set( parsed );
 
 			generated = ReactDOM.renderToString( application( {
-				items: itemsCollection
+				items: itemsCollection,
 			} ) );
 
-			res.render('./../app/index.ejs', { reactOutput: generated, tagId: queryString.tagId } );
+			res.render('./../app/index.ejs', { reactOutput: generated, userConfig: JSON.stringify( app.userConfig ) } );
 		} else {
 			console.log( "Homepage GET Error: " + JSON.stringify( queryString ) );
 		}

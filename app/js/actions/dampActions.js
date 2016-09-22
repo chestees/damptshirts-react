@@ -8,6 +8,12 @@ var DampActions = {
 			, data: data
 		} );
 	}
+	, getMore: function ( data ) {
+		AppDispatcher.dispatch( {
+			actionType: Consts.ActionTypes.Get_More
+			, data: data
+		} );
+	}
 };
 
 module.exports = DampActions;

@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var _ = require( 'underscore' );
+var moment = require( 'moment' );
 var $ = require( 'jquery' );
 
 var Thumbnails = React.createClass( {
@@ -18,12 +19,13 @@ var Thumbnails = React.createClass( {
 	}
 	, componentDidMount: function() {
 		var containerWidth = $( this.refs.container ).width();
-		console.log( "WIDTH: " + containerWidth );
 
-		var thumbnailWidth = Math.floor( containerWidth / this.state.numPerRow );
-		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( thumbnailWidth - this.state.paddingAndBorder );
+		this.thumbnailWidth = Math.floor( containerWidth / this.state.numPerRow ) - this.state.paddingAndBorder;
+		$( ReactDom.findDOMNode( this.refs.images ) ).find( 'img' ).width( this.thumbnailWidth );
 	}
 	, render: function () {
+		var imgStyle = { width: this.thumbnailWidth };
+
 		var thumbnails = this.props.items.map( _.bind( function ( item, i ) {
 
 			var hrefUrl = '/' + item.get( 'slug' ) + '/shirt/' + item.get( 'dampId' );
@@ -31,18 +33,18 @@ var Thumbnails = React.createClass( {
 			return (
 				<div className="product" key={ i }>
 					<a className="product-link" href={ hrefUrl } data-id={ item.get( 'dampId' ) }>
-						<img className="product-image" alt={ item.get( 'title' ) } title={ item.get( 'title' ) } src={ item.get( 'image' ) } />
+						<img className="product-image" style={imgStyle} alt={ item.get( 'title' ) } title={ item.get( 'title' ) } src={ item.get( 'image' ) } />
 					</a>
 					<div className="thumbs" data-id={ item.get( 'dampId' ) }>
 						<span className="badge vote-count">{ item.get( 'thumbs' ) } votes</span>
 						<div className="thumbs_info">
-							<div className="btn btn-danger vote-down">
-								<span className="txt">Meh</span>
+							<div className="btn btn-minus vote-down">
+								<span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
 							</div>
-							<div className="btn btn-primary l_margin_5 vote-up">
-								<span className="txt">Like</span>
+							<div className="btn btn-plus l_margin_5 vote-up">
+								<span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</div>
-							<div className="date-added">{ item.get( 'dateAdded' ) }</div>
+							{/*<div className="date-added">Added: { moment( item.get( 'dateAdded' ) ).format('l') }</div>*/}
 						</div>
 					</div>
 				</div>

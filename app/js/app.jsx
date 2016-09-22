@@ -1,6 +1,7 @@
 var React = require('react');
 var _ = require( 'underscore' );
 
+var DampActions = require( './actions/dampActions' );
 var DampStore = require( './stores/dampStore' );
 
 var Header = require( './components/header' );
@@ -11,23 +12,23 @@ var Thumbnails = require( './components/thumbnails' );
 var App = React.createClass( {
 	getInitialState: function () {
 		return {
-			items: this.props.items
+			items: this.props.items,
 		};
 	}
 	, propTypes: function () {
 		return {
 			items: React.PropTypes.object
-			, page: React.PropTypes.string
+			, userConfig: React.PropTypes.object
 		}
 	}
 	, componentDidMount: function () {
 		DampStore.addEventListener( DampStore.ActionTypes.Refresh_Thumbnails, this._refresh );
 	}
 	, render: function () {
-
 		var content = ( <Thumbnails items={ this.state.items } /> );
-		var sideBar = ( <SideBar /> );
-		var optionsBar = ( <OptionsBar /> );
+		var sideBar = ( <SideBar {...this.props} /> );
+		var optionsBar = ( <OptionsBar {...this.props} /> );
+		var btnMore = ( <div className="btn btn-primary show-more" onClick={ this._showMore }>Show me more</div> );
 
 		return (
 			<div className="layout">
@@ -40,6 +41,7 @@ var App = React.createClass( {
 						<article className="col-md-10" id="article">
 							{ optionsBar }
 							{ content }
+							{ btnMore }
 						</article>
 					</div>
 				</main>
@@ -50,6 +52,10 @@ var App = React.createClass( {
 		this.setState( {
 			items: data
 		} );
+	}
+	, _showMore: function () {
+		this.props.userConfig.page++;
+		DampActions.getMore( this.props.userConfig );
 	}
 } );
 

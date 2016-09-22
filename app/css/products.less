@@ -1,21 +1,41 @@
+.options-bar {
+	margin-bottom: 10px;
+
+	.sort-option {
+		float: right;
+		margin-left: 5px;
+
+		&:active {
+			box-shadow: none;
+		}
+
+		&.isActive {
+			border: 2px solid #CA4040 !important;
+		}
+	}
+}
+
 .product-list-container {
 	.product-list {
 		.product {
-			display: inline-block; 
+			display: inline-block;
 			position: relative;
 			vertical-align: top;
-			margin: 0 5px 10px;
+			margin: 0 5px 40px;
 			z-index: 1;
 
 			&:hover {
-				z-index: 5;
-
 				.product-link {
 					.product-image {
 						background-color: @red;
 					}
 				}
-				
+
+				.thumbs {
+					display: block;
+					z-index: 99;
+				}
+
 			}
 			.product-link {
 				z-index: 1;
@@ -28,30 +48,44 @@
 					border: 1px solid #455560;
 					text-align: center;
 					color: #000000;
+					min-height: 180px;
 				}
 			}
 
 			.thumbs {
-
 				display: none;
 				text-align: center;
-				border: 1px solid @red;
-				// border-radius: 4px;
-				background-color: #fff;
-				padding-top: 15px;
-				position: absolute;
-				box-sizing: border-box;
-				z-index: -1;
 
 				.vote-count {
 					position: absolute;
-					top: -10px;
-					right: -10px;
+					top: -6px;
+					right: -5px;
 					background-color: @red;
 				}
 				.thumbs_info {
 					position: absolute;
-					bottom: 20px;
+					bottom: -8px;
+					right: 0;
+					left: 0;
+
+					.btn {
+						padding: 5px 15px;
+						font-size: 8px;
+						border-color: @red;
+
+						&:hover {
+							background-color: #000 !important;
+							color: #fff;
+						}
+
+						&.btn-minus {
+							background-color: #fff;
+						}
+
+						&.btn-plus {
+							background-color: #fff;
+						}
+					}
 				}
 				.date-added {
 					display: block;

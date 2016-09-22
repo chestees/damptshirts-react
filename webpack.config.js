@@ -5,13 +5,15 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	context: path.resolve('app'),
 	entry: {
-		'app': './app.js'
-		, 'detail': './detail.js'
-		// , 'style': './css/styles.less'
+		'app': [
+			'./app'
+			, './css/styles.less'
+		]
+		// , 'detail': './detail.js'
 	},
 	watch: true,
 	output: {
-		path: path.resolve('app/'),
+		path: path.resolve('app/js/'),
 		publicPath: path.resolve('app/'),
 		filename: '[name].bundle.js'
 	},
@@ -27,9 +29,9 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.(less|css)$/,
+				test: /\.less$/,
 				exclude: /node_modules/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader?indentedSyntax=true&sourceMap=true')
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader?indentedSyntax=true&sourceMap=true')
 			},
 			{
 				test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
@@ -42,7 +44,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin("styles.css"),
+		new ExtractTextPlugin('styles.css'),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',

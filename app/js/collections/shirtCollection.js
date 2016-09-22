@@ -12,7 +12,7 @@ var ShirtCollection = Backbone.Collection.extend({
 	}
 	, initialize: function( options ) {
 		var page = options.page || 1;
-		var pageSize = options.pageSize || 25;
+		var pageSize = options.pageSize || 30;
 		this.orderBy = options.orderBy || 'dateAdded';
 		this.orderDirection = options.orderDirection || 'DESC';
 		var tagId = options.tagId || 0;

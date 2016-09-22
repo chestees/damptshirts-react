@@ -6,6 +6,7 @@ var ShirtCollection = require( './../collections/shirtCollection')
 var ShirtModel = require( './../models/shirtsModel');
 var items = {};
 var itemsCollection;
+var moreItemsCollection;
 var itemModel;
 
 var DampStore = assign({}, EventEmitter.prototype, {
@@ -38,6 +39,15 @@ var DampStore = assign({}, EventEmitter.prototype, {
 			}
 		});
 	}
+	, getMore: function ( options ) {
+		moreItemsCollection = new ShirtCollection( options );
+		moreItemsCollection.fetch( {
+			success: function ( collection, response ) {
+				itemsCollection.add( response, { silent: true } );
+				DampStore.emit( DampStore.ActionTypes.Refresh_Thumbnails, itemsCollection.models );
+			}
+		});
+	}
 	, getItemDetail: function ( options, callback ) {
 		itemModel = new ShirtModel( options );
 		itemModel.fetch( {
@@ -50,7 +60,10 @@ var DampStore = assign({}, EventEmitter.prototype, {
 	, dispatchToken: AppDispatcher.register( function ( action ) {
 		switch ( action.actionType ) {
 			case DampStore.ActionTypes.Sort_Items:
-				DampStore.getItems ( action.data, DampStore.emit( DampStore.ActionTypes.Sort_Items, action.data ) );
+				DampStore.getItems ( action.data, DampStore.emit( DampStore.ActionTypes.Sort_Items ) );
+				break;
+			case DampStore.ActionTypes.Get_More:
+				DampStore.getMore ( action.data );
 				break;
 			default:
 				return true;
