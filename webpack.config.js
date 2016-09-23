@@ -9,7 +9,7 @@ module.exports = {
 			'./app'
 			, './css/styles.less'
 		]
-		// , 'detail': './detail.js'
+		, 'detail': './detail'
 	},
 	watch: true,
 	output: {

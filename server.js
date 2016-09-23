@@ -85,7 +85,7 @@ app.get('/', function( req, res ) {
 app.get( '/:slug/shirt/:id', function( request, response ) {
 	var application;
 	var generated;
-	var itemId = request.params.id;
+	var dampId = request.params.id;
 
 	console.log("Item Id: " + request.params.id );
 
@@ -115,7 +115,7 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 
 			response.render('./../app/detail.ejs', {
 				reactOutput: generated
-				, itemId: itemId
+				, dampId: dampId
 			} );
 		});
 	})
@@ -132,10 +132,14 @@ app.get('/:tag/tag/:tagId', function( req, res ) {
 	var tagId = req.params.tagId;
 	var url =  app.url + '/api/products'
 	var queryString = {
-		'Page': 1
-		, 'PageSize': 25
-		, 'TagId': tagId
+		'page': app.userConfig.page
+		, 'pageSize': app.userConfig.perRow * app.userConfig.numRows
+		, 'orderBy': 'dateAdded'
+		, 'orderDirection': 'DESC'
+		, 'tagId': tagId
 	}
+
+	app.userConfig.tagId = tagId;
 
 	console.log("Tag Id: " + tagId );
 
@@ -153,7 +157,7 @@ app.get('/:tag/tag/:tagId', function( req, res ) {
 				items: itemsCollection
 			} ) );
 
-			res.render('./../app/index.ejs', { reactOutput: generated, tagId: tagId } );
+			res.render('./../app/index.ejs', { reactOutput: generated, userConfig: JSON.stringify( app.userConfig ) } );
 		}
 	});
 } );

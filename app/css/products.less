@@ -10,7 +10,8 @@
 		}
 
 		&.isActive {
-			border: 2px solid #CA4040 !important;
+			text-decoration: underline;
+			color: #ca4040;
 		}
 	}
 }
@@ -43,9 +44,9 @@
 				background-color: @background;
 
 				.product-image {
-					padding: 2px;
+					padding: 1px;
 					background-color: @background;
-					border: 1px solid #455560;
+					border: 1px solid @ltGray;
 					text-align: center;
 					color: #000000;
 					min-height: 180px;
@@ -69,13 +70,19 @@
 					left: 0;
 
 					.btn {
-						padding: 5px 15px;
+						padding: 0;
 						font-size: 8px;
 						border-color: @red;
+						width: 30px;
+						height: 25px;
 
 						&:hover {
 							background-color: #000 !important;
 							color: #fff;
+						}
+
+						&.glyphicon {
+							line-height: 23px;
 						}
 
 						&.btn-minus {

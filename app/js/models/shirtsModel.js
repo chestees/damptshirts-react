@@ -1,11 +1,20 @@
 var Backbone = require( 'backbone' );
 
 var ShirtsModel = Backbone.Model.extend({
-	url: function () {
-		return '/api/product' + ( this.has( 'itemId' ) ? ( '/' + this.get( 'itemId' ) ) : '' );
+	urlRoot: '/api/product'
+	, url: function () {
+
+		var urlParams = ( this.has( 'dampId' ) ? ( '/' + this.get( 'dampId' ) ) : '' );
+
+		return this.urlRoot + urlParams;
+
 	}
-	, initialize: function( options ) {
-		this.itemId = options.itemId;
+	, save: function ( attrs, options ) {
+		if ( options.vote ) {
+			options.url = this.url() + '?vote=' + options.vote;
+		}
+
+		Backbone.Model.prototype.save.call( this, attrs, options );
 	}
 	, defaults: {
 		'thumbs': 0,
