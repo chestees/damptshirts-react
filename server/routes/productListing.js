@@ -2,14 +2,14 @@ var sql = require( 'mssql' ),
 	_   = require('underscore');
 
 module.exports = function( app ) {
-    sql.connect( app.config, _.bind( function( err ) {
+	sql.connect( app.config, _.bind( function( err ) {
 		if( err ) {
 			console.log("Product Listing Error: " + err );
 		}
 
 		// Product listing
 		app.use( '/api/products', function( req, res ) {
-			console.log("Q: " + JSON.stringify( req.query ) );
+			console.log("Server Query: " + JSON.stringify( req.query ) );
 			var productListing = new sql.Request();
 
 			var page           = req.query.page || 1;
@@ -17,9 +17,10 @@ module.exports = function( app ) {
 			var orderBy        = req.query.orderBy || 'dateAdded';
 			var orderDirection = req.query.orderDirection || 'ASC';
 			var tagId          = req.query.tagId || 0;
+			var search         = req.query.search || null;
 
 			productListing.input( 'TagID', sql.Int, tagId );
-			productListing.input( 'Search', sql.NVarChar, 0 );
+			productListing.input( 'Search', sql.NVarChar, search );
 			productListing.input( 'SiteName', sql.NVarChar, 'damptshirts' );
 			productListing.input( 'Page', sql.Int, page );
 			productListing.input( 'PageSize', sql.Int, pageSize );
@@ -27,29 +28,20 @@ module.exports = function( app ) {
 			productListing.input( 'OrderDirection', sql.NVarChar, orderDirection );
 
 			productListing.execute( 'usp_Damp_Products', function( err, recordset, returnValue ) {
-				app = recordset[0];
-				app.recordCount = recordset[1][0];
-
-				// console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
-				// console.log( '2: ' + JSON.stringify( recordset[1][0] ) + '\n' );
-
-				// console.log( 'Tag Id  : ' + tagId );
-				// console.log( 'Order By: ' + orderBy );
-				// console.log( '1: ' + JSON.stringify( recordset[0] ) + '\n');
-				// console.log(recordset.length); // count of recordsets returned by the procedure
-				// console.log(recordset[0].length); // count of rows contained in first recordset
-				// console.log(returnValue); // procedure return value
-				// console.log(recordset.returnValue); // same as previous line
+				var products = {
+					recordSet: recordset[0]
+					, recordCount: recordset[1][0]
+				};
 
 				if( err ) {
 					console.log("Error: " + err );
 				} else {
-					res.send( app );
+					res.send( products );
 				}
 			});
 		});
-		app.use( '/api/count', function( req, res ) {
-			res.send( app.recordCount );
-		});
+		// app.use( '/api/count', function( req, res ) {
+		// 	res.send( app.recordCount );
+		// });
 	}, this ) );
 };

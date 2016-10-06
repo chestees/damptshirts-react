@@ -2,12 +2,11 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var Detail = require( './js/detail.jsx' );
 var DampStore = require('./js/stores/dampStore.js');
-var dampId = window.dampId;
 
 var options = {
-	dampId: dampId
+	dampId: window.dampId
 }
 
 DampStore.getItemDetail ( options, function( itemDetail ) {
-	ReactDom.render( ( <Detail itemDetail={ itemDetail } /> ), document.getElementById( 'app' ) );
+	ReactDom.render( ( <Detail itemDetail={ itemDetail } userConfig={ window.userConfig } /> ), document.getElementById( 'app' ) );
 } );

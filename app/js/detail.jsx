@@ -9,16 +9,17 @@ var App = React.createClass( {
 		return {
 			itemDetail: React.PropTypes.object
 			, vendors: React.PropTypes.object
+			, userConfig: React.PropTypes.object
 		}
 	}
 	, render: function () {
 
-		var detailContent = ( <DetailItem itemDetail={ this.props.itemDetail } /> );
+		var detailContent = ( <DetailItem {...this.props} itemDetail={ this.props.itemDetail } /> );
 		var sideBar = ( <SideBar /> );
 
 		return (
 			<div className="layout">
-				<Header />
+				<Header {...this.props} />
 				<main className="container-fluid">
 					<div className="row">
 						<aside className="col-md-2">

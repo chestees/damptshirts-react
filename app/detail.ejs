@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <script>
 	window.dampId = <%- dampId %>
+	window.userConfig = <%- userConfig %>
 </script>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Damp T-Shirts</title>
-		<link rel="stylesheet" type="text/css" href="/js/styles.css" />
+		<link rel="stylesheet" type="text/css" href="/build/styles.css" />
 	</head>
 	<body>
 		<div id="app"><%- reactOutput %></div>
-		<script src='/js/detail.bundle.js'></script>
+		<script src='/build/detail.bundle.js'></script>
 	</body>
 </html>

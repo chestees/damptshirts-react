@@ -14,7 +14,8 @@ app.userConfig = {
 	perRow: 6,
 	numRows: 5,
 	pageSize: 30,
-	tagId: 0
+	tagId: 0,
+	search: null
 }
 
 app.config = {
@@ -40,6 +41,9 @@ app.getVendors = function() {
 		} else {
 			console.log( "Vendors GET Error: " + JSON.stringify( err ) );
 		}
+
+		callback();
+
 	});
 }
 
@@ -49,32 +53,51 @@ app.use( express.static( __dirname + '/app' ) );
 app.get('/', function( req, res ) {
 	var application;
 	var generated;
+	var tagId = req.query.tagId;
+	var searchVal = req.query.search;
 	var url = app.url + '/api/products'
 	var queryString = {
 		'page': app.userConfig.page
 		, 'pageSize': app.userConfig.perRow * app.userConfig.numRows
 		, 'orderBy': 'dateAdded'
 		, 'orderDirection': 'DESC'
-		, 'tagId': 0
+		, 'tagId': tagId || 0
+		, 'search': searchVal || null
+	}
+
+	if ( tagId ) {
+		app.userConfig.tagId = tagId;
+	} else {
+		app.userConfig.tagId = 0;
+	}
+
+	if ( searchVal ) {
+		app.userConfig.search = searchVal;
+	} else {
+		app.userConfig.search = null;
 	}
 
 	application = React.createFactory( require('./app/js/app.jsx') );
 
-	app.getVendors();
+	// app.getVendors();
 
 	request.get( { url: url, qs: queryString }, function( err, response, body ) {
 
-		if ( !err && response.statusCode == 200 ) {
-			var parsed = JSON.parse( body );
+		var responseObject = JSON.parse( body );
 
-			var itemsCollection = new Backbone.Collection()
-			itemsCollection.set( parsed );
+		if ( !err && response.statusCode == 200 ) {
+
+			var itemsCollection = new Backbone.Collection();
+
+			itemsCollection.set( responseObject.recordSet );
+			itemsCollection.recordCount = responseObject.recordCount.recordCount;
 
 			generated = ReactDOM.renderToString( application( {
-				items: itemsCollection,
+				userConfig: app.userConfig,
+				items: itemsCollection
 			} ) );
 
-			res.render('./../app/index.ejs', { reactOutput: generated, userConfig: JSON.stringify( app.userConfig ) } );
+			res.render('./../app/app.ejs', { reactOutput: generated, userConfig: JSON.stringify( app.userConfig ) } );
 		} else {
 			console.log( "Homepage GET Error: " + JSON.stringify( queryString ) );
 		}
@@ -110,12 +133,16 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 
 			generated = ReactDOM.renderToString( application( {
 				itemDetail: itemModel
+				, userConfig: app.userConfig
 				// , vendors: app.vendorsCollection
 			} ) );
+
+			console.log( 'User Config: ' + JSON.stringify( app.userConfig ) );
 
 			response.render('./../app/detail.ejs', {
 				reactOutput: generated
 				, dampId: dampId
+				, userConfig: JSON.stringify( app.userConfig )
 			} );
 		});
 	})

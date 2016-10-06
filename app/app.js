@@ -7,8 +7,11 @@ var options = {
 	page: window.userConfig.page || 1
 	, pageSize: window.userConfig.perRow * window.userConfig.numRows
 	, tagId: window.userConfig.tagId || 0
+	, search: window.userConfig.search
 }
 
-DampStore.getItems ( options, function( items ) {
-	ReactDom.render( ( <App items={ items } userConfig={ window.userConfig } /> ), document.getElementById( 'app' ) );
+DampStore.getItems ( options, function( itemsCollection ) {
+
+	ReactDom.render( ( <App items={ itemsCollection } userConfig={ window.userConfig } /> ), document.getElementById( 'app' ) );
+
 } );

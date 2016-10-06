@@ -15,9 +15,6 @@ var Thumbnail = React.createClass( {
 			imgStyle: React.PropTypes.object
 		}
 	}
-	, componentDidMount: function() {
-
-	}
 	, render: function () {
 		var hrefUrl = '/' + this.props.model.get( 'slug' ) + '/shirt/' + this.props.model.get( 'dampId' );
 

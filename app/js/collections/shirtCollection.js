@@ -16,14 +16,15 @@ var ShirtCollection = Backbone.Collection.extend({
 		this.orderBy = options.orderBy || 'dateAdded';
 		this.orderDirection = options.orderDirection || 'DESC';
 		var tagId = options.tagId || 0;
-		//
-		// this.listenTo( this, "sort", this.render );
+		var search = options.search;
+
 		this.params = {
 			page: page
 			, pageSize: pageSize
 			, orderBy: this.orderBy
 			, orderDirection: this.orderDirection
 			, tagId: tagId
+			, search: search
 		};
 	}
 	, comparator: function( model ) {

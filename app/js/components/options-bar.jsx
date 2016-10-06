@@ -61,6 +61,7 @@ var OptionsBar = React.createClass( {
 			, orderBy: orderBy
 			, orderDirection: orderDirection
 			, tagId: this.props.userConfig.tagId
+			, search: this.props.userConfig.search
 		}
 
 		DampActions.sortItems ( options );

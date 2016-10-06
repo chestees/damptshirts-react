@@ -42,9 +42,9 @@ var ItemDetail = React.createClass( {
 		return (
 			<div className="row detail-container">
 				<div className="col-md-8">
-					<a href="/" className="btn btn-default btn-sm back">
+					<div onClick={this._redirectHome} className="btn btn-default btn-sm back">
 						<span className="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to listing
-					</a>
+					</div>
 					<h1>{ this.props.itemDetail.get( 'title' ) }</h1>
 					<div className="row">
 						<div className="product-image col-md-10"><img src={ displayImage } /></div>
@@ -106,6 +106,15 @@ var ItemDetail = React.createClass( {
 		}, function( response ) {
 			console.log('Facebook response: ' + response)
 		});
+	}
+	, _redirectHome: function () {
+		var searchVal = '';
+
+		if ( this.props.userConfig.search ) {
+			searchVal = '?search=' + this.props.userConfig.search
+		}
+
+		window.location.assign( '/' + searchVal );
 	}
 } );
 

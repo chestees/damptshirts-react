@@ -8,11 +8,12 @@ var Header = require( './components/header' );
 var SideBar = require( './components/sideBar' );
 var OptionsBar = require( './components/options-bar' );
 var Thumbnails = require( './components/thumbnails' );
+var MoreButton = require( './components/more-button' );
 
 var App = React.createClass( {
 	getInitialState: function () {
 		return {
-			items: this.props.items,
+			items: this.props.items
 		};
 	}
 	, propTypes: function () {
@@ -28,11 +29,11 @@ var App = React.createClass( {
 		var content = ( <Thumbnails items={ this.state.items } /> );
 		var sideBar = ( <SideBar {...this.props} /> );
 		var optionsBar = ( <OptionsBar {...this.props} /> );
-		var btnMore = ( <div className="btn btn-primary show-more" onClick={ this._showMore }>Show me more</div> );
+		var btnMore = ( <MoreButton {...this.props} /> );
 
 		return (
 			<div className="layout">
-				<Header />
+				<Header {...this.props} />
 				<main className="container-fluid">
 					<div className="row">
 						<aside className="col-md-2">
