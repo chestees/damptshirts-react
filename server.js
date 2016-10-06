@@ -25,8 +25,8 @@ app.config = {
 	database: process.env.DB_NAME
 }
 
-// app.url = "http://damptshirts-react.herokuapp.com";
-app.url = "http://localhost:7000";
+app.url = "http://damptshirts-react.herokuapp.com";
+// app.url = "http://localhost:7000";
 
 // Get the Vendors collection
 app.getVendors = function() {
