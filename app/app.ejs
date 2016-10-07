@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <script>
-	window.userConfig = <%- userConfig %>
+	window.userConfig = <%- JSON.stringify( userConfig ) %>
 </script>
 <html lang="en">
 	<head>
@@ -8,6 +8,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Damp T-Shirts</title>
 		<link rel="stylesheet" type="text/css" href="/build/styles.css" />
+
+		<meta property="og:title" content='<%- userConfig.fb_title %>'>
+		<meta property="og:description" content="">
+		<meta property="og:type" content="product">
+		<meta property="og:site_name" content="Damp T-Shirts">
+		<meta property="fb:app_id" content="243380072355004">
+		<meta property="og:url" content="">
+		<meta property="og:image" content='<%- userConfig.fb_image %>'>
 	</head>
 	<body>
 		<div id="app"><%- reactOutput %></div>

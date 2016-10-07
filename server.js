@@ -15,7 +15,10 @@ app.userConfig = {
 	numRows: 5,
 	pageSize: 30,
 	tagId: 0,
-	search: null
+	search: null,
+	fb_image: null,
+	fb_title: null,
+	fb_url: null
 }
 
 app.config = {
@@ -97,7 +100,7 @@ app.get('/', function( req, res ) {
 				items: itemsCollection
 			} ) );
 
-			res.render('./../app/app.ejs', { reactOutput: generated, userConfig: JSON.stringify( app.userConfig ) } );
+			res.render('./../app/app.ejs', { reactOutput: generated, userConfig: app.userConfig } );
 		} else {
 			console.log( "Homepage GET Error: " + JSON.stringify( queryString ) );
 		}
@@ -129,6 +132,9 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 			itemModel.set( parsed );
 			itemModel.set( { vendors: app.vendorsCollection } );
 
+			app.userConfig.fb_image = itemModel.get( 'image' );
+			app.userConfig.fb_title = itemModel.get( 'title' );
+			// app.userConfig.fb_url = itemModel.get( 'image' );
 			// console.log("Vendors: " + JSON.stringify( app.vendorsCollection ) );
 
 			generated = ReactDOM.renderToString( application( {
@@ -142,7 +148,7 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 			response.render('./../app/detail.ejs', {
 				reactOutput: generated
 				, dampId: dampId
-				, userConfig: JSON.stringify( app.userConfig )
+				, userConfig: app.userConfig
 			} );
 		});
 	})
