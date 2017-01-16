@@ -134,7 +134,7 @@ app.get( '/:slug/shirt/:id', function( request, response ) {
 
 			app.userConfig.fb_image = itemModel.get( 'image' );
 			app.userConfig.fb_title = itemModel.get( 'title' );
-			// app.userConfig.fb_url = itemModel.get( 'image' );
+			app.userConfig.fb_url = app.url + '/' + itemModel.get( 'slug' ) + '/shirt/' + itemModel.get( 'dampId' );
 			// console.log("Vendors: " + JSON.stringify( app.vendorsCollection ) );
 
 			generated = ReactDOM.renderToString( application( {
